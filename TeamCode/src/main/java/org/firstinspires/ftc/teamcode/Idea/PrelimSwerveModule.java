@@ -1,9 +1,32 @@
 package org.firstinspires.ftc.teamcode.Idea;
 
-import org.firstinspires.ftc.teamcode.Util.ServoRRX;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.teamcode.Util.ContServoRRX;
+import org.firstinspires.ftc.teamcode.Util.MotorRRX;
 
 public class PrelimSwerveModule {
 
-   ServoRRX swervo;
+   ContServoRRX swerveServo;
+   MotorRRX swerveMotor;
+
+   public PrelimSwerveModule(HardwareMap hardwareMap){
+      swerveServo = new ContServoRRX(hardwareMap, "swerveServo");
+      swerveMotor = new MotorRRX(hardwareMap, "swerveMotor", 1.0);
+   }
+
+   public void setSwerveServoDirection(CRServo.Direction direction){
+      swerveServo.setDirection(direction);
+   }
+
+   public void setSwerveMotorPower(double power){
+      swerveMotor.setPower(power);
+   }
+
+   public void setSwerveServoPower(double power){
+      swerveServo.setPower(power);
+   }
+
 
 }
