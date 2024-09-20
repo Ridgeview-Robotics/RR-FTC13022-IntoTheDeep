@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.Idea;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+@TeleOp(name = "Test Auto Logger")
 public class TestLogger extends OpMode {
 
     AutoPrepLogger autoPrepLogger;
