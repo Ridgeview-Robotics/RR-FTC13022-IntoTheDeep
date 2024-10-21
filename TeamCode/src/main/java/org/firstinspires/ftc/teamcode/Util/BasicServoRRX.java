@@ -3,11 +3,11 @@ package org.firstinspires.ftc.teamcode.Util;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class ServoRRX {
+public class BasicServoRRX {
 
     Servo rcsServo;
 
-    public ServoRRX(HardwareMap hardwareMap, String servoName){
+    public BasicServoRRX(HardwareMap hardwareMap, String servoName){
         rcsServo = hardwareMap.get(Servo.class, servoName);
     }
 
