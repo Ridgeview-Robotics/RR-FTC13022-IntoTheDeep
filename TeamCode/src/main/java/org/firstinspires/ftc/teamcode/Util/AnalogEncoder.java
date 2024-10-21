@@ -26,12 +26,12 @@ public class AnalogEncoder {
     }
 
     private double pastPosition = 1;
-    public double getCurrentPosition() {
-        double pos = Angle.norm((!inverted ? 1 - getVoltage() / analogRange : getVoltage() / analogRange) * Math.PI*2 - offset);
-        //checks for crazy values when the encoder is close to zero
-        if(!valueRejection || Math.abs(Angle.normDelta(pastPosition)) > 0.1 || Math.abs(Angle.normDelta(pos)) < 1) pastPosition = pos;
-        return pastPosition;
-    }
+//    public double getCurrentPosition() {
+//        double pos = Angle.norm((!inverted ? 1 - getVoltage() / analogRange : getVoltage() / analogRange) * Math.PI*2 - offset);
+//        //checks for crazy values when the encoder is close to zero
+//        if(!valueRejection || Math.abs(Angle.normDelta(pastPosition)) > 0.1 || Math.abs(Angle.normDelta(pos)) < 1) pastPosition = pos;
+//        return pastPosition;
+//    }
 
     public AnalogInput getEncoder() {
         return encoder;

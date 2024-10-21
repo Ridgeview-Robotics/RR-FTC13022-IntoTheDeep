@@ -11,9 +11,9 @@ public class PrelimSwerveModule {
    ContServoRRX swerveServo;
    MotorRRX swerveMotor;
 
-   public PrelimSwerveModule(HardwareMap hardwareMap){
-      swerveServo = new ContServoRRX(hardwareMap, "swerveServo");
-      swerveMotor = new MotorRRX(hardwareMap, "swerveMotor", 1.0);
+   public PrelimSwerveModule(HardwareMap hardwareMap, String servoName, String motorName){
+      swerveServo = new ContServoRRX(hardwareMap, servoName);
+      swerveMotor = new MotorRRX(hardwareMap, motorName, 1.0);
    }
 
    public void setSwerveServoDirection(CRServo.Direction direction){
