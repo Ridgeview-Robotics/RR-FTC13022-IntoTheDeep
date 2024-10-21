@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.Idea;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+@TeleOp(name = "Preliminary Swerve Test")
 public class PrelimSwerveTester extends OpMode {
 
     PrelimSwerveModule swerveModule;
