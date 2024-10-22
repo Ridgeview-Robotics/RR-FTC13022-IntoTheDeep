@@ -10,4 +10,15 @@ the joystick.  as in, they will not run to a degree-value, they will run with th
 make sure you input your hardwareMap on the robot.  
 and i suggest you write down in this md file where you have put the cables.
 
+__CONTROL HUB__  (no encoders yet)
+
+M0: FLMotor
+M1: FRMotor
+M2: BLMotor
+M3: BRMotor
+
+    S0: FLServo  S1: FRServo  S2: BLServo  S3: BRServo
+
+-----------------------------
+
 should be all.   
