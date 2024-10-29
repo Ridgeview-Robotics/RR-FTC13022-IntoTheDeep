@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class HDServoRRX extends BasicServoRRX {
 
-    public double voltageRange = 3.3
+    public double voltageRange = 3.3;
 
 
 
@@ -12,9 +12,9 @@ public class HDServoRRX extends BasicServoRRX {
         super(hardwareMap, servoName);
     }
 
-    public double getVoltage(){
+    /*public double getVoltage(){
         return
-    }
+    }*/
 
 
 }
