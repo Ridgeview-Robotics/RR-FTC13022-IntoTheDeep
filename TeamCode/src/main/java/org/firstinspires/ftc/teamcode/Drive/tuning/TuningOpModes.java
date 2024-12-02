@@ -53,7 +53,7 @@ public final class TuningOpModes {
         if (DISABLED) return;
 
         DriveViewFactory dvf;
-        if (DRIVE_CLASS.equals(MecanumDrive.class)) {
+        if (DRIVE_CLASS.equals(org.firstinspires.ftc.teamcode.Drive.MecanumDrive.class)) {
             dvf = hardwareMap -> {
                 MecanumDrive md = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
 
@@ -80,10 +80,10 @@ public final class TuningOpModes {
 
                 return new DriveView(
                     DriveType.MECANUM,
-                        MecanumDrive.PARAMS.inPerTick,
-                        MecanumDrive.PARAMS.maxWheelVel,
-                        MecanumDrive.PARAMS.minProfileAccel,
-                        MecanumDrive.PARAMS.maxProfileAccel,
+                        org.firstinspires.ftc.teamcode.Drive.MecanumDrive.PARAMS.inPerTick,
+                        org.firstinspires.ftc.teamcode.Drive.MecanumDrive.PARAMS.maxWheelVel,
+                        org.firstinspires.ftc.teamcode.Drive.MecanumDrive.PARAMS.minProfileAccel,
+                        org.firstinspires.ftc.teamcode.Drive.MecanumDrive.PARAMS.maxProfileAccel,
                         hardwareMap.getAll(LynxModule.class),
                         Arrays.asList(
                                 md.leftFront,
@@ -99,9 +99,9 @@ public final class TuningOpModes {
                         perpEncs,
                         md.lazyImu,
                         md.voltageSensor,
-                        () -> new MotorFeedforward(MecanumDrive.PARAMS.kS,
-                                MecanumDrive.PARAMS.kV / MecanumDrive.PARAMS.inPerTick,
-                                MecanumDrive.PARAMS.kA / MecanumDrive.PARAMS.inPerTick)
+                        () -> new MotorFeedforward(org.firstinspires.ftc.teamcode.Drive.MecanumDrive.PARAMS.kS,
+                                org.firstinspires.ftc.teamcode.Drive.MecanumDrive.PARAMS.kV / org.firstinspires.ftc.teamcode.Drive.MecanumDrive.PARAMS.inPerTick,
+                                org.firstinspires.ftc.teamcode.Drive.MecanumDrive.PARAMS.kA / org.firstinspires.ftc.teamcode.Drive.MecanumDrive.PARAMS.inPerTick)
                 );
             };
         } else if (DRIVE_CLASS.equals(TankDrive.class)) {

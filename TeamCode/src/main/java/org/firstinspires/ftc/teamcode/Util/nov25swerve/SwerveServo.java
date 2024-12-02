@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Util.AnalogEncoder;
 
 public class SwerveServo {
 
-    public double electricConstant = 109.09090909; //Multiply voltage value * this = val in deg
+    public double electricConstant = 109.09090909; //voltage value * this = val in deg
 
     CRServo rcsServo;
     AnalogEncoder enc;
