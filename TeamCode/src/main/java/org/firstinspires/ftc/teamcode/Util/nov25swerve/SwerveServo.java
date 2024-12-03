@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Util.nov25swerve;
 
-import static java.lang.Double.min;
 import static java.lang.Math.abs;
 
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -85,7 +84,9 @@ public class SwerveServo {
         double altAngle1 = angle1 > 0.0 ? angle1 - 2.0 : 1.0 - angle1;
         double distance = abs(angle1 - angle2) < abs(altAngle1 - angle2) ? angle1 - angle2 : altAngle1 - angle2;
         return distance;
-    }
+    } //I think the if-false portion of that if statement is correct, and I think that if that is where its range
+    //is landing, then it is correct, but we'll need to check values with the abs enc, and then decide whether we route this
+    //to be in RAD or DEG
 
     // Servo travel minimization function, to minimize the time the servo takes to travel to the new position.
     private double minimumTravelAngle(double angle) {
@@ -96,7 +97,7 @@ public class SwerveServo {
         // Calculate the amount by which we need to move the servo, and in what direction
         double angleDelta = abs(angleDiff(angle, pos)) < abs(angleDiff(inverseAngle, pos)) ? angleDiff(angle, pos) : angleDiff(inverseAngle, pos);
         double newAngle = pos + angleDelta;
-
+        //this looks correct to me, all good
         return newAngle;
     }
 
