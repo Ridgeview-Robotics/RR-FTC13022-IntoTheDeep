@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.Util.nov25swerve;
 
+import static java.lang.Double.min;
+import static java.lang.Math.abs;
+
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -36,7 +39,7 @@ public class SwerveServo {
     }
 
     public double getPosition(){
-        return volToDeg(rcsServo.getPower());
+        return volToDeg(enc.getVoltage());
     }
 
     public double volToDeg(double voltageInput){
@@ -73,6 +76,28 @@ public class SwerveServo {
         while (angle > 0.5) angle -= 1.0;
         while (angle < -0.5) angle += 1.0;
         return angle;
+    }
+
+    // PLEASE CHECK MY CODE!!! - Emerson
+
+    // Function to calculate the actual difference between two angles
+    private double angleDiff(double angle1, double angle2) {
+        double altAngle1 = angle1 > 0.0 ? angle1 - 2.0 : 1.0 - angle1;
+        double distance = abs(angle1 - angle2) < abs(altAngle1 - angle2) ? angle1 - angle2 : altAngle1 - angle2;
+        return distance;
+    }
+
+    // Servo travel minimization function, to minimize the time the servo takes to travel to the new position.
+    private double minimumTravelAngle(double angle) {
+        double pos = getPosition();
+        angle = normalizeAngle(angle);
+        // Calculate the angle 180 degrees from the current angle
+        double inverseAngle = (angle + 1.0) <= 1.0? angle + 1.0: angle - 1.0;
+        // Calculate the amount by which we need to move the servo, and in what direction
+        double angleDelta = abs(angleDiff(angle, pos)) < abs(angleDiff(inverseAngle, pos)) ? angleDiff(angle, pos) : angleDiff(inverseAngle, pos);
+        double newAngle = pos + angleDelta;
+
+        return newAngle;
     }
 
 
