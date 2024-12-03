@@ -10,8 +10,8 @@ public class AdvSwerveModule {
     MotorRRX sMotor;
     SwerveServo mServo;
 
-    double mNwb;
-    double mNtw;
+    double mNwb;  //negative wheelbase
+    double mNtw; //negative trackwidth
 
     double x = mNtw*GlobalVars.tw/2;
     double y = mNwb*GlobalVars.wb/2;
