@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Util.nov25swerve;
 
 import static java.lang.Math.abs;
 
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -26,7 +27,7 @@ public class SwerveServo {
 
     public SwerveServo(HardwareMap hardwareMap, String servoName, String EncName){
         rcsServo = hardwareMap.get(CRServo.class, servoName);
-        enc = new AnalogEncoder(hardwareMap.get(AnalogEncoder.class, EncName).getEncoder(), 3.3);
+        enc = new AnalogEncoder(hardwareMap.get(AnalogInput.class, EncName), 3.3);
     }
 
     public void setDirection(CRServo.Direction direction){
