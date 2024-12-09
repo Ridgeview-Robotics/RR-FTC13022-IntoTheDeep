@@ -11,6 +11,10 @@ import org.firstinspires.ftc.teamcode.Util.AnalogEncoder;
 public class SwerveServo {
 
     public double electricConstant = 109.09090909; //voltage value * this = val in deg
+    public double gearRatio = 0.4482758620689; //assuming drive pulley is 26t and driven pulley is 58t
+    //so theoretically... every full rotation of the servo is a 44% rotation of the drive pulley, hence,
+    //if the servo starts at FC, 0deg, and turns to 90deg right, the wheel will only have turned 40.3deg.
+    //180 deg, or turned around, is only 80deg of wheel turn.
 
     CRServo rcsServo;
     AnalogEncoder enc;
@@ -69,7 +73,7 @@ public class SwerveServo {
         double output = pTerm + iTerm + dTerm + fTerm;
 
         // Apply output to motor
-        rcsServo.setPower(output);
+        setPower(output);
     }
 
     private double normalizeAngle(double angle) {
