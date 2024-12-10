@@ -1,14 +1,13 @@
 package org.firstinspires.ftc.teamcode.Util.nov25swerve;
 
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class AdvancedSwerveDrivetrain{
 
-    private AdvSwerveModule FL;
-    private AdvSwerveModule FR;
-    private AdvSwerveModule BL;
-    private AdvSwerveModule BR;
+    public final AdvSwerveModule FL;
+    private final AdvSwerveModule FR;
+    private final AdvSwerveModule BL;
+    private final AdvSwerveModule BR;
 
     public AdvancedSwerveDrivetrain(HardwareMap hardwareMap){
         FL = new AdvSwerveModule(hardwareMap, "FLM", "FLS", "FLE", 1, -1);
@@ -25,30 +24,49 @@ public class AdvancedSwerveDrivetrain{
         BR.solve(iLX, iLY, iRX);
     }
 
-    public void assignMotorPower(){
-        FL.set();
-        FR.set();
-        BL.set();
-        BR.set();
-    }
-
     public double[] currentVelocities(){
-        return new double[]{FL.getMotorPower(), FL.getMotorPower(), FL.getMotorPower(), FL.getMotorPower()};
+        return new double[]{FL.getMotorPower(), FR.getMotorPower(), BL.getMotorPower(), BR.getMotorPower()};
     }
 
     public double[] targetVelocities(){
-        return new double[]{FL.targetVelo(), FL.targetVelo(), FL.targetVelo(), FL.targetVelo()};
+        return new double[]{FL.targetVelo(), FR.targetVelo(), BL.targetVelo(), BR.targetVelo()};
     }
-
 
     public double[] targetAngles(){
-        return new double[]{FL.getTargetAngle(), FL.getTargetAngle(), FL.getTargetAngle(), FL.getTargetAngle()};
+        return new double[]{FL.getTargetAngle(), FR.getTargetAngle(), BL.getTargetAngle(), BR.getTargetAngle()};
     }
-
 
     public double[] currentAngles(){
-        return new double[]{FL.getCurrentAngle(), FL.getCurrentAngle(), FL.getCurrentAngle(), FL.getCurrentAngle()};
+        return new double[]{FL.getCurrentAngle(), FR.getCurrentAngle(), BL.getCurrentAngle(), BR.getCurrentAngle()};
     }
 
+    public double[] getFL_PID(){
+        return FL.getPIDS();
+    }
+
+    public double[] getFR_PID(){
+        return FR.getPIDS();
+    }
+
+    public double[] getBL_PID(){
+        return BL.getPIDS();
+    }
+
+    public double[] getBR_PID(){
+        return BR.getPIDS();
+    }
+
+    public void setFLTarg(double t){
+        FL.setServoTarget(t);
+    }
+    public void setFRTarg(double t){
+        FR.setServoTarget(t);
+    }
+    public void setBLTarg(double t){
+        BL.setServoTarget(t);
+    }
+    public void setBRTarg(double t){
+        BR.setServoTarget(t);
+    }
 
 }

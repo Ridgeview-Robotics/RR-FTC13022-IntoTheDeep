@@ -25,12 +25,17 @@ public class AdvancedSwerveKitTester extends OpMode {
         double RX = gamepad1.right_stick_x;
 
         drivetrain.updateAll(LX, LY, RX);
-        drivetrain.assignMotorPower();
 
         telemetry.addLine("Current Velocities: " + Arrays.toString(drivetrain.currentVelocities()));
         telemetry.addLine("Target Velocities: " + Arrays.toString(drivetrain.targetVelocities()));
         telemetry.addLine("Current Angles: " + Arrays.toString(drivetrain.currentAngles()));
         telemetry.addLine("Target Angles: " + Arrays.toString(drivetrain.targetAngles()));
+        //DEBUGGING PID
+        telemetry.addLine("FL PID: " + Arrays.toString(drivetrain.getFL_PID()));
+        telemetry.addLine("FR PID: " + Arrays.toString(drivetrain.getFR_PID()));
+        telemetry.addLine("BL PID: " + Arrays.toString(drivetrain.getBL_PID()));
+        telemetry.addLine("BR PID: " + Arrays.toString(drivetrain.getBR_PID()));
+
         telemetry.update();
     }
 }

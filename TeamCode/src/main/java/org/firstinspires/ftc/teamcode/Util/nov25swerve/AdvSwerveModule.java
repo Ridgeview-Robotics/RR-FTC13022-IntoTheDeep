@@ -41,12 +41,11 @@ public class AdvSwerveModule {
 
         tA = Angle;
         tV = Speed;
-    }
 
-    public void set(){
         sMotor.setPower(tV);
-        mServo.setTargetAngle(tA);
+        mServo.setPower(mServo.setTargetAngle(tA));
     }
+    //Servo power multiplier?
 
     public double getMotorPower(){
         return sMotor.getPower();
@@ -61,7 +60,15 @@ public class AdvSwerveModule {
     }
 
     public double getCurrentAngle(){
-        return mServo.volToDeg(mServo.getPosition());
+        return mServo.getPosition();
+    }
+
+    public double[] getPIDS(){
+        return mServo.getPIDS();
+    }
+
+    public void setServoTarget(double target){
+        mServo.setTargetAngle(target);
     }
 
 }

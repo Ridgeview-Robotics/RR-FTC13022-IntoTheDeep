@@ -16,13 +16,13 @@ public class SwerveServo {
     //if the servo starts at FC, 0deg, and turns to 90deg right, the wheel will only have turned 40.3deg.
     //180 deg, or turned around, is only 80deg of wheel turn.
 
+    public double l_pTerm;
+    public double l_iTerm;
+    public double l_dTerm;
+    public double l_fTerm;
+
     CRServo rcsServo;
     AnalogEncoder enc;
-
-    private double kP = 0.001;
-    private double kI = 0.01;
-    private double kD = 0.001;
-    private double kF = 0.001;
 
     // PID State
     private double lastError = 0.0;
@@ -47,38 +47,43 @@ public class SwerveServo {
     }
 
     public double volToDeg(double voltageInput){
-        return voltageInput * electricConstant;
+        return voltageInput * electricConstant * gearRatio;
     }
 
-    public void setTargetAngle(double targetAngle) {
-        double currentAngle = volToDeg(enc.getVoltage());
+    public double setTargetAngle(double targetAngle) { //suggest power multiplier
+        double currentAngle = getPosition();
         double error = normalizeAngle(targetAngle - currentAngle);
 
         // Proportional term
-        double pTerm = kP * error;
+        l_pTerm = GlobalVars.a_kP * error;
 
         // Integral term
 
         integral += error;
-        double iTerm = kI * integral;
+        l_iTerm = GlobalVars.a_kI * integral; //Integral system incorrect
 
         // Derivative term
-        double dTerm = kD * (error - lastError);
+        l_dTerm = GlobalVars.a_kD * (error - lastError);
         lastError = error;
 
         // Feedforward term (optional; scale to desired output range if necessary)
-        double fTerm = kF * targetAngle;
+        l_fTerm = GlobalVars.a_kF * targetAngle;
 
         // Compute final output
-        double output = pTerm + iTerm + dTerm + fTerm;
+        double output = l_pTerm + l_iTerm + l_dTerm + l_fTerm;
 
         // Apply output to motor
-        setPower(output);
+        return output;
     }
 
     private double normalizeAngle(double angle) {
-        while (angle > 0.5) angle -= 1.0;
-        while (angle < -0.5) angle += 1.0;
+        if(angle > 90){
+            angle += 180;
+        }
+        else if(angle < 270){
+            angle -= 180;
+        }
+
         return angle;
     }
 
@@ -106,5 +111,8 @@ public class SwerveServo {
         return newAngle;
     }
 
-
+    public double []getPIDS(){
+        return new double[]{l_pTerm, l_iTerm, l_dTerm, l_fTerm};
+    }
 }
+
