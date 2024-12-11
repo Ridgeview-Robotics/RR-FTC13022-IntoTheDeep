@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Util.nov25swerve;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Util.MotorRRX;
@@ -22,6 +23,8 @@ public class AdvSwerveModule {
         sMotor = new MotorRRX(hardwareMap, motor, 1.0);
         mServo = new SwerveServo(hardwareMap, servo, enc);
 
+        sMotor.setMotorBehavior(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         mNwb = negWB; //these variables will come out as either 1 or -1.  This is just a refrencer.
         mNtw = negTW;
 
@@ -30,6 +33,7 @@ public class AdvSwerveModule {
     }
 
     public void solve(double Lx, double Ly, double Rx){
+        sMotor.setForward();
         double vRotX = -Rx * y; // Perpendicular to radius
         double vRotY = Rx * x; // Tangential to radius
 
@@ -38,6 +42,11 @@ public class AdvSwerveModule {
 
         double Angle= Math.toDegrees(Math.atan2(vTotalY, vTotalX));
         double Speed= Math.sqrt((vTotalX * vTotalX) + (vTotalY * vTotalY));
+
+        if(Ly > 0){
+            sMotor.setReverse();
+            Angle +=180;
+        }
 
         tA = Angle;
         tV = Speed;
@@ -67,8 +76,16 @@ public class AdvSwerveModule {
         return mServo.getPIDS();
     }
 
+    public double getVoltage(){
+        return mServo.getVoltage();
+    }
+
     public void setServoTarget(double target){
         mServo.setTargetAngle(target);
+    }
+
+    public double returnError(){
+        return mServo.getError();
     }
 
 }

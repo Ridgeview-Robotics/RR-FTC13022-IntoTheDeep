@@ -10,6 +10,10 @@ import org.firstinspires.ftc.teamcode.Util.AnalogEncoder;
 
 public class SwerveServo {
 
+    //3.3 / 360 = .0091666 volts per degree
+    // you want to go to 90 degrees 90 * .0091666 = .82494 volts
+    //
+
     public double electricConstant = 109.09090909; //voltage value * this = val in deg
     public double gearRatio = 0.4482758620689; //assuming drive pulley is 26t and driven pulley is 58t
     //so theoretically... every full rotation of the servo is a 44% rotation of the drive pulley, hence,
@@ -20,6 +24,8 @@ public class SwerveServo {
     public double l_iTerm;
     public double l_dTerm;
     public double l_fTerm;
+
+    public double mError;
 
     CRServo rcsServo;
     AnalogEncoder enc;
@@ -46,25 +52,29 @@ public class SwerveServo {
         return volToDeg(enc.getVoltage());
     }
 
+    public double getVoltage(){
+        return enc.getVoltage();
+    }
+
     public double volToDeg(double voltageInput){
         return voltageInput * electricConstant * gearRatio;
     }
 
     public double setTargetAngle(double targetAngle) { //suggest power multiplier
         double currentAngle = getPosition();
-        double error = normalizeAngle(targetAngle - currentAngle);
+        mError = targetAngle - currentAngle;
 
         // Proportional term
-        l_pTerm = GlobalVars.a_kP * error;
+        l_pTerm = GlobalVars.a_kP * mError;
 
         // Integral term
 
-        integral += error;
+        integral += mError;
         l_iTerm = GlobalVars.a_kI * integral; //Integral system incorrect
 
         // Derivative term
-        l_dTerm = GlobalVars.a_kD * (error - lastError);
-        lastError = error;
+        l_dTerm = GlobalVars.a_kD * (mError - lastError);
+        lastError = mError;
 
         // Feedforward term (optional; scale to desired output range if necessary)
         l_fTerm = GlobalVars.a_kF * targetAngle;
@@ -113,6 +123,10 @@ public class SwerveServo {
 
     public double []getPIDS(){
         return new double[]{l_pTerm, l_iTerm, l_dTerm, l_fTerm};
+    }
+
+    public double getError(){
+        return mError;
     }
 }
 

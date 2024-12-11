@@ -5,15 +5,16 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class AdvancedSwerveDrivetrain{
 
     public final AdvSwerveModule FL;
-    private final AdvSwerveModule FR;
-    private final AdvSwerveModule BL;
-    private final AdvSwerveModule BR;
+    public final AdvSwerveModule FR;
+    public final AdvSwerveModule BL;
+    public final AdvSwerveModule BR;
 
     public AdvancedSwerveDrivetrain(HardwareMap hardwareMap){
         FL = new AdvSwerveModule(hardwareMap, "FLM", "FLS", "FLE", 1, -1);
         FR = new AdvSwerveModule(hardwareMap, "FRM", "FRS", "FRE", 1, 1);
         BL = new AdvSwerveModule(hardwareMap, "BLM", "BLS", "BLE", -1, -1);
         BR = new AdvSwerveModule(hardwareMap, "BRM", "BRS", "BRE", -1, 1);
+
 
     }
 
@@ -38,6 +39,10 @@ public class AdvancedSwerveDrivetrain{
 
     public double[] currentAngles(){
         return new double[]{FL.getCurrentAngle(), FR.getCurrentAngle(), BL.getCurrentAngle(), BR.getCurrentAngle()};
+    }
+
+    public double[] currentVoltages(){
+        return new double[]{FL.getVoltage(), FR.getVoltage(), BL.getVoltage(), BR.getVoltage()};
     }
 
     public double[] getFL_PID(){
