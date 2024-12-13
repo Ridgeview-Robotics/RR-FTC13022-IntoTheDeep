@@ -19,6 +19,7 @@ public class SwerveServo {
     //so theoretically... every full rotation of the servo is a 44% rotation of the drive pulley, hence,
     //if the servo starts at FC, 0deg, and turns to 90deg right, the wheel will only have turned 40.3deg.
     //180 deg, or turned around, is only 80deg of wheel turn.
+    //new gear ratio with the new teeth should be around 0.6rep?
 
     public double l_pTerm;
     public double l_iTerm;
@@ -56,13 +57,17 @@ public class SwerveServo {
         return enc.getVoltage();
     }
 
+    public double degToVol(double degInput){
+        return degInput / electricConstant / gearRatio;
+    }
+
     public double volToDeg(double voltageInput){
         return voltageInput * electricConstant * gearRatio;
     }
 
     public double setTargetAngle(double targetAngle) { //suggest power multiplier
-        double currentAngle = getPosition();
-        mError = targetAngle - currentAngle;
+        double currentAngle = getVoltage();
+        mError = (targetAngle - currentAngle);
 
         // Proportional term
         l_pTerm = GlobalVars.a_kP * mError;
@@ -96,6 +101,7 @@ public class SwerveServo {
 
         return angle;
     }
+
 
     // PLEASE CHECK MY CODE!!! - Emerson
 

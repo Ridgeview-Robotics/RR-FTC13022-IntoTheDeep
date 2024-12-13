@@ -40,12 +40,11 @@ public class AdvSwerveModule {
         double vTotalX = Lx + vRotX;
         double vTotalY = Ly + vRotY;
 
-        double Angle= Math.toDegrees(Math.atan2(vTotalY, vTotalX));
+        double Angle= Math.toDegrees(Math.atan2(vTotalY, vTotalX) - Math.PI/2);
         double Speed= Math.sqrt((vTotalX * vTotalX) + (vTotalY * vTotalY));
 
         if(Ly > 0){
             sMotor.setReverse();
-            Angle +=180;
         }
 
         tA = Angle;
