@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode.Util.nov25swerve;
+package org.firstinspires.ftc.teamcode.Utilities.nov25swerve;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.Util.MotorRRX;
+import org.firstinspires.ftc.teamcode.Utilities.MotorRRX;
 
 public class AdvSwerveModule {
 

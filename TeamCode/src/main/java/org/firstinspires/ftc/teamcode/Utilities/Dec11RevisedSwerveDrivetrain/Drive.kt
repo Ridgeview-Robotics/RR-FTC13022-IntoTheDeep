@@ -1,7 +1,6 @@
-package org.firstinspires.ftc.teamcode.Util.Dec11RevisedSwerveDrivetrain
+package org.firstinspires.ftc.teamcode.Utilities.Dec11RevisedSwerveDrivetrain
 
 import com.acmerobotics.roadrunner.Pose2d
-import com.acmerobotics.roadrunner.Twist2d
 
 /**
  * Abstraction for generic drivetrain motion and localization.

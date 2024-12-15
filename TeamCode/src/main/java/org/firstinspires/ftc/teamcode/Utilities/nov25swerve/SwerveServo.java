@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Util.nov25swerve;
+package org.firstinspires.ftc.teamcode.Utilities.nov25swerve;
 
 import static java.lang.Math.abs;
 
@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.Util.AnalogEncoder;
+import org.firstinspires.ftc.teamcode.Utilities.AnalogEncoder;
 
 public class SwerveServo {
 

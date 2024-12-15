@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.Idea;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.Util.ContServoRRX;
-import org.firstinspires.ftc.teamcode.Util.MotorRRX;
+import org.firstinspires.ftc.teamcode.Utilities.ContServoRRX;
+import org.firstinspires.ftc.teamcode.Utilities.MotorRRX;
 
 public class PrelimSwerveModule {
 

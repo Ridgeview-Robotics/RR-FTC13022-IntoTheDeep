@@ -1,12 +1,12 @@
-package org.firstinspires.ftc.teamcode.Util.nov25swerve;
+package org.firstinspires.ftc.teamcode.Utilities.nov25swerve;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 
-import org.firstinspires.ftc.teamcode.Util.AnalogEncoder;
-import org.firstinspires.ftc.teamcode.Util.ContServoRRX;
+import org.firstinspires.ftc.teamcode.Utilities.AnalogEncoder;
+import org.firstinspires.ftc.teamcode.Utilities.ContServoRRX;
 
 @TeleOp(name = "AELocalizer")
 public class AnalogEncoderLocalizer extends OpMode {
