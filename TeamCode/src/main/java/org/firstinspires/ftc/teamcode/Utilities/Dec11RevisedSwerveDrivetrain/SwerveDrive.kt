@@ -1,14 +1,7 @@
 package org.firstinspires.ftc.teamcode.Utilities.Dec11RevisedSwerveDrivetrain
 
 import com.acmerobotics.roadrunner.Pose2d
-import com.acmerobotics.roadrunner.ProfileParams
 import com.acmerobotics.roadrunner.Rotation2d
-import com.acmerobotics.roadrunner.TimeTrajectory
-import com.acmerobotics.roadrunner.TimeTurn
-import com.acmerobotics.roadrunner.TrajectoryActionBuilder
-import com.acmerobotics.roadrunner.TrajectoryActionFactory
-import com.acmerobotics.roadrunner.TrajectoryBuilderParams
-import com.acmerobotics.roadrunner.TurnActionFactory
 
 /**
  * This class provides basic functionality of a mecanum drive using on [MecanumKinematics].
@@ -47,7 +40,6 @@ abstract class SwerveDrive @JvmOverloads constructor(
                 .zip(lastWheelPositions)
                 .map { it.first - it.second }
             val robotPoseDelta = SwerveKinematics.wheelToRobotVelocities(positionDeltas, moduleOrientations, wheelBase, trackWidth)
-            val newHeading = poseEstimate.heading + robotPoseDelta.heading.toDouble()
             poseEstimate = (Pose2d(robotPoseDelta.position, robotPoseDelta.heading)) // there are reasonable odds that this will not work
         }
         lastWheelPositions = wheelPositions
@@ -67,20 +59,5 @@ abstract class SwerveDrive @JvmOverloads constructor(
 
     abstract fun getModuleOrientations(): List<Double>
 
-    fun actionBuilder(beginPose: Pose2d?): TrajectoryActionBuilder {
-        return TrajectoryActionBuilder(
-            TurnActionFactory { turn: TimeTurn -> TurnAction(turn) },
-            TrajectoryActionFactory { t: TimeTrajectory -> FollowTrajectoryAction(t) },
-            TrajectoryBuilderParams(
-                1e-6,
-                ProfileParams(
-                    0.25, 0.1, 1e-2
-                )
-            ),
-            beginPose!!, 0.0,
-            defaultTurnConstraints,
-            defaultVelConstraint, defaultAccelConstraint
-        )
-    }
 
 }
