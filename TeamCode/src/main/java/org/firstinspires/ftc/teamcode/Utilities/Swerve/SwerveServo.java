@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Utilities.nov25swerve;
+package org.firstinspires.ftc.teamcode.Utilities.Swerve;
 
 import static java.lang.Math.abs;
 
@@ -6,7 +6,9 @@ import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.Utilities.AnalogEncoder;
+import org.firstinspires.ftc.teamcode.Robot.Core.GlobalVars;
+import org.firstinspires.ftc.teamcode.Utilities.Core.AnalogEncoder;
+import org.firstinspires.ftc.teamcode.Utilities.Core.ContServoRRX;
 
 public class SwerveServo {
 
@@ -28,7 +30,7 @@ public class SwerveServo {
 
     public double mError;
 
-    CRServo rcsServo;
+    ContServoRRX rcsServo;
     AnalogEncoder enc;
 
     // PID State
@@ -37,7 +39,7 @@ public class SwerveServo {
 
 
     public SwerveServo(HardwareMap hardwareMap, String servoName, String EncName){
-        rcsServo = hardwareMap.get(CRServo.class, servoName);
+        rcsServo = new ContServoRRX(hardwareMap, servoName);
         enc = new AnalogEncoder(hardwareMap.get(AnalogInput.class, EncName), 3.3);
     }
 

@@ -1,9 +1,10 @@
-package org.firstinspires.ftc.teamcode.Utilities.nov25swerve;
+package org.firstinspires.ftc.teamcode.Utilities.Swerve;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.Utilities.MotorRRX;
+import org.firstinspires.ftc.teamcode.Robot.Core.GlobalVars;
+import org.firstinspires.ftc.teamcode.Utilities.Core.MotorRRX;
 
 public class AdvSwerveModule {
 
@@ -28,7 +29,7 @@ public class AdvSwerveModule {
         mNwb = negWB; //these variables will come out as either 1 or -1.  This is just a refrencer.
         mNtw = negTW;
 
-        x = mNtw*GlobalVars.tw/2;
+        x = mNtw* GlobalVars.tw/2;
         y = mNwb*GlobalVars.wb/2;
     }
 

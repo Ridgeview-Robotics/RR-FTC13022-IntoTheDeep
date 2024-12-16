@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Utilities;
+package org.firstinspires.ftc.teamcode.Utilities.Core;
 
 //Hello! Welcome to the Ridgeview Robotics Extended Motor Class.
 //This location serves as a hub to analyze and reference any necessary code that pertains to a DcMotor

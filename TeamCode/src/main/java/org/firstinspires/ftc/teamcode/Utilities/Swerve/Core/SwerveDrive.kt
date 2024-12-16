@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Utilities.Dec11RevisedSwerveDrivetrain
+package org.firstinspires.ftc.teamcode.Utilities.Swerve.Core
 
 import com.acmerobotics.roadrunner.Pose2d
 import com.acmerobotics.roadrunner.Rotation2d
@@ -24,8 +24,10 @@ abstract class SwerveDrive @JvmOverloads constructor(
     private var lastWheelPositions = emptyList<Double>()
 
     override fun setVelocity(poseVelocity: Pose2d) {
-        val motorPowers = SwerveKinematics.robotToWheelVelocities(poseVelocity, trackWidth, wheelBase)
-        val moduleOrientations = SwerveKinematics.robotToModuleOrientations(poseVelocity, trackWidth, wheelBase)
+        val motorPowers =
+            SwerveKinematics.robotToWheelVelocities(poseVelocity, trackWidth, wheelBase)
+        val moduleOrientations =
+            SwerveKinematics.robotToModuleOrientations(poseVelocity, trackWidth, wheelBase)
         setMotorPowers(motorPowers[0], motorPowers[1], motorPowers[2], motorPowers[3])
         setModuleOrientations(moduleOrientations[0], moduleOrientations[1], moduleOrientations[2], moduleOrientations[3])
     }
@@ -39,7 +41,12 @@ abstract class SwerveDrive @JvmOverloads constructor(
             val positionDeltas = wheelPositions
                 .zip(lastWheelPositions)
                 .map { it.first - it.second }
-            val robotPoseDelta = SwerveKinematics.wheelToRobotVelocities(positionDeltas, moduleOrientations, wheelBase, trackWidth)
+            val robotPoseDelta = SwerveKinematics.wheelToRobotVelocities(
+                positionDeltas,
+                moduleOrientations,
+                wheelBase,
+                trackWidth
+            )
             poseEstimate = (Pose2d(robotPoseDelta.position, robotPoseDelta.heading)) // there are reasonable odds that this will not work
         }
         lastWheelPositions = wheelPositions
