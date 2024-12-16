@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Util;
+package org.firstinspires.ftc.teamcode.Utilities.Core;
 
 //Hello! Welcome to the Ridgeview Robotics Extended Motor Class.
 //This location serves as a hub to analyze and reference any necessary code that pertains to a DcMotor
@@ -6,6 +6,7 @@ package org.firstinspires.ftc.teamcode.Util;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
@@ -52,6 +53,10 @@ public class MotorRRX {
     public void setReverse(){
         rcsMotor.setDirection(DcMotorEx.Direction.REVERSE);
         //reverses the direction of the motor.  Power application is the same.
+    }
+
+    public void setForward(){
+        rcsMotor.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
     public double getPower(){
