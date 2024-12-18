@@ -27,16 +27,8 @@ android {
     }
 }
 
-repositories {
-    maven {
-        url = 'https://maven.brott.dev/'
-    }
-}
-
 dependencies {
     implementation project(':FtcRobotController')
-
-    implementation "com.acmerobotics.roadrunner:ftc:0.1.14"
-    implementation "com.acmerobotics.roadrunner:core:0.5.6"
-    implementation "com.acmerobotics.dashboard:dashboard:0.4.16"
+    implementation 'androidx.core:core-ktx:1.15.0'
+    implementation 'com.acmerobotics.roadrunner:core:0.5.6'
 }

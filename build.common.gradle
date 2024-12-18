@@ -21,7 +21,7 @@ apply plugin: 'com.android.application'
 
 android {
 
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     signingConfigs {
         release {
@@ -86,24 +86,25 @@ android {
     // http://google.github.io/android-gradle-dsl/current/com.android.build.gradle.internal.dsl.BuildType.html
     buildTypes {
         release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro'
             signingConfig signingConfigs.release
 
             ndk {
                 abiFilters "armeabi-v7a", "arm64-v8a"
             }
+
+        }
+        debug {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'),
                     'proguard-rules.pro'
-        }
-        debug {
             debuggable true
             jniDebuggable true
             ndk {
                 abiFilters "armeabi-v7a", "arm64-v8a"
             }
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'),
-                    'proguard-rules.pro'
         }
     }
 
