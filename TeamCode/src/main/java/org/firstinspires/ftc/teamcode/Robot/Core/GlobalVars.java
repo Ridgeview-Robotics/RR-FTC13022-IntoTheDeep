@@ -12,9 +12,4 @@ public class GlobalVars {
     public static double a_kI = 0.00;
     public static double a_kD = 0.00;
     public static double a_kF = 0.00;
-
-    public static double st_error = 0;
-
-    public boolean isAuto = false;
-
 }
