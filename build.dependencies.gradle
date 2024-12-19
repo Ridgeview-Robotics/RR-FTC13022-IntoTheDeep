@@ -16,5 +16,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
 
     implementation 'com.acmerobotics.dashboard:dashboard:0.4.16'
+    implementation 'org.apache.commons:commons-configuration2:2.11.0'
 }
 

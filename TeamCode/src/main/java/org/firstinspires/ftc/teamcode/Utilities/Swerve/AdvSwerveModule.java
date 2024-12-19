@@ -88,4 +88,11 @@ public class AdvSwerveModule {
         return mServo.getError();
     }
 
+    public void setMotorPower(double target){
+        sMotor.setPower(target);
+    }
+
+    public void setServoPower(double power){
+        mServo.setPower(power);
+    }
 }

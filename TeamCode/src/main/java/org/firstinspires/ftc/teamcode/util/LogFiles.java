@@ -4,9 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
@@ -167,8 +164,7 @@ public final class LogFiles {
         @SuppressLint("SimpleDateFormat")
         final DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd__HH_mm_ss_SSS");
 
-        final ObjectWriter jsonWriter = new ObjectMapper(new JsonFactory())
-                .writerWithDefaultPrettyPrinter();
+
 
         @Override
         public void onOpModePreInit(OpMode opMode) {
@@ -205,14 +201,6 @@ public final class LogFiles {
                 //noinspection ResultOfMethodCallIgnored
                 ROOT.mkdirs();
 
-                String filename = dateFormat.format(new Date(log.msInit)) + "__" + opMode.getClass().getSimpleName() + ".json";
-                File file = new File(ROOT, filename);
-                try {
-                    jsonWriter.writeValue(file, log);
-                } catch (IOException e) {
-                    RobotLog.setGlobalErrorMsg(new RuntimeException(e),
-                            "Unable to write data to " + file.getAbsolutePath());
-                }
             }
         }
     };
