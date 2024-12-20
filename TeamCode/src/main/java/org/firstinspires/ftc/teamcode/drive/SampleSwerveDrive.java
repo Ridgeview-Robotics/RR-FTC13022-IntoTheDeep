@@ -29,6 +29,7 @@ import com.acmerobotics.roadrunner.trajectory.constraints.MinVelocityConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.ProfileAccelerationConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAccelerationConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
+import com.outoftheboxrobotics.photoncore.PhotonCore;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -97,6 +98,8 @@ public class SampleSwerveDrive extends SwerveDrive {
     public SampleSwerveDrive(HardwareMap hardwareMap) {
         super(kV, kA, kStatic, TRACK_WIDTH);
 
+        PhotonCore photonCore = new PhotonCore();
+
         velocityConstraint = getVelocityConstraint(MAX_VEL, MAX_ANG_VEL, TRACK_WIDTH);
         accelConstraint = getAccelerationConstraint(MAX_ACCEL);
 
@@ -161,6 +164,9 @@ public class SampleSwerveDrive extends SwerveDrive {
         );
 
     }
+
+    //photon funnies
+
 
     public void startIMUThread(LinearOpMode opMode) {
         imuThread = new Thread(() -> {
