@@ -25,4 +25,17 @@ public class GlobalVars {
     public static boolean IS_PARKING = false;
     public static boolean USE_WHEEL_FEEDFORWARD = false;
 
+    //LIFT
+
+    public static final int vl_down = 0;
+    public static final int vl_bucket_high = 1100;
+    public static final int vl_bucket_low = 900;
+    public static final int vl_wall = 600;
+    public static final int vl_bar_low = 1300;
+    public static final int vl_bar_high = 1000;
+
+
+    public static final int hl_retracted = 0;
+    public static final int hl_extended = 1000;
+
 }

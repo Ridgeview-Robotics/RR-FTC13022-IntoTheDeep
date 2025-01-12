@@ -48,6 +48,7 @@ public class MotorRRX {
 
     public void resetEncoder(){
         rcsMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER); //resets the encoder
+        rcsMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
     }
 
     public void setReverse(){
