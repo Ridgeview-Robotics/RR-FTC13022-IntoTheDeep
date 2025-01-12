@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Utilities.Core.MotorRRX;
 
 public class HorizontalLift {
 
-    MotorRRX motor;
+    public MotorRRX motor;
 
     public horizPositions mHoriz;
 
@@ -37,7 +37,7 @@ public class HorizontalLift {
         setTarget(getState());
 
         motor.resetEncoder();
-        motor.setPower(0.1);
+        setPower(GlobalVars.hl_power);
     }
 
     public horizPositions getState(){
@@ -51,6 +51,10 @@ public class HorizontalLift {
 
     public void setTarget(horizPositions target){
         motor.setTargetPos(target.getPos());
+    }
+
+    public void setPower(double power){
+        motor.setPower(power);
     }
 
 

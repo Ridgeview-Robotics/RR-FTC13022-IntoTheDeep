@@ -10,8 +10,8 @@ import org.firstinspires.ftc.teamcode.Utilities.Core.MotorRRX;
 
 public class VerticalLift {
 
-    MotorRRX leftLift;
-    MotorRRX rightLift;
+    public MotorRRX leftLift;
+    public MotorRRX rightLift;
 
     public vertPositions mVert;
 
@@ -47,8 +47,7 @@ public class VerticalLift {
 
         rightLift.resetEncoder();
         leftLift.resetEncoder();
-        rightLift.setPower(0.1);
-        leftLift.setPower(0.1);
+        setPower(GlobalVars.vl_power, GlobalVars.vl_power);
     }
 
     public vertPositions getState(){
@@ -66,6 +65,11 @@ public class VerticalLift {
     public void setTarget(vertPositions target){
         leftLift.setTargetPos(target.getVertPos());
         rightLift.setTargetPos(target.getVertPos());
+    }
+
+    public void setPower(double powL, double powR){
+        leftLift.setPower(powL);
+        rightLift.setPower(powR);
     }
 
 

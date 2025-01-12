@@ -27,6 +27,7 @@ public class GlobalVars {
 
     //LIFT
 
+    public static final double vl_power = 0.1;
     public static final int vl_down = 0;
     public static final int vl_bucket_high = 1100;
     public static final int vl_bucket_low = 900;
@@ -35,7 +36,14 @@ public class GlobalVars {
     public static final int vl_bar_high = 1000;
 
 
+    public static final double hl_power = 0.1;
     public static final int hl_retracted = 0;
     public static final int hl_extended = 1000;
+
+
+    public static final double ra_power = 0.1;
+    public static final int ra_down = 300;
+    public static final int ra_high = 900;
+    public static final int ra_backwards = 1400;
 
 }
