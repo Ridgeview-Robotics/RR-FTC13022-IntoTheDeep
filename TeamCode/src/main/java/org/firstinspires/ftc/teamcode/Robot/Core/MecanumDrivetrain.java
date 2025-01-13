@@ -29,6 +29,8 @@ public class MecanumDrivetrain {
         rightFront.setReverse();
         rightBack.setReverse();
 
+        setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        setBrakeMode(DcMotor.ZeroPowerBehavior.BRAKE);
 
         setMotorPower(0, 0, 0, 0);
 
@@ -48,8 +50,11 @@ public class MecanumDrivetrain {
         rightBack.setMotorBehavior(runMode);
     }
 
-    private double inchesToTicks(double inches){
-        return ((inches*mTicksPerRev)/mWheelRadius * 2 * Math.PI);
+    public void setBrakeMode(DcMotor.ZeroPowerBehavior behavior){
+        leftFront.setBrakeBehavior(behavior);
+        rightFront.setBrakeBehavior(behavior);
+        leftBack.setBrakeBehavior(behavior);
+        rightBack.setBrakeBehavior(behavior);
     }
 
     public void stopAndReset(){

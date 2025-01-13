@@ -46,4 +46,16 @@ public class GlobalVars {
     public static final int ra_high = 900;
     public static final int ra_backwards = 1400;
 
+    //SERVOS
+
+    public static final double c_closed = 0.0;
+    public static final double c_open = 1.0;
+
+
+    public static final double i_extraction = 0.0;
+    public static final double i_transfer = 1.0;
+
+    public static final double i_captured = 1.0;
+    public static final double i_exhume = 0.0;
+
 }

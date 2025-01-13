@@ -3,9 +3,13 @@ package org.firstinspires.ftc.teamcode.Robot.Core;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.Robot.Subsytems.ServoSystems.Intake;
+
 public class Robot {
 
     MecanumDrivetrain drivetrain;
+
+    public static Intake.intakeWheelPositions wheelPosition = Intake.intakeWheelPositions.EXHUME;
 
 
     public Robot(HardwareMap hardwareMap){
