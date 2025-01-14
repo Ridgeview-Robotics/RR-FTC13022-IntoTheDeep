@@ -24,10 +24,10 @@ public class MecanumDrivetrain {
         rightBack = new MotorRRX(hardwareMap, "brm", 1.0);
 
 
-        leftFront.setForward();
-        leftBack.setForward();
-        rightFront.setReverse();
-        rightBack.setReverse();
+        leftFront.setReverse();
+        leftBack.setReverse();
+        rightFront.setForward();
+        rightBack.setForward();
 
         setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         setBrakeMode(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -36,7 +36,7 @@ public class MecanumDrivetrain {
 
     }
 
-    public void setMotorPower(double leftFront, double rightFront, double leftBack, double rightBack){
+    public void setMotorPower(double leftFront, double leftBack, double rightBack, double rightFront){
         this.leftFront.setPower(leftFront);
         this.rightFront.setPower(rightFront);
         this.leftBack.setPower(leftBack);

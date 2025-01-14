@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Robot.Subsytems.ServoSystems.Intake;
 
 public class Robot {
 
-    MecanumDrivetrain drivetrain;
+    public MecanumDrivetrain drivetrain;
 
     public static Intake.intakeWheelPositions wheelPosition = Intake.intakeWheelPositions.EXHUME;
 
