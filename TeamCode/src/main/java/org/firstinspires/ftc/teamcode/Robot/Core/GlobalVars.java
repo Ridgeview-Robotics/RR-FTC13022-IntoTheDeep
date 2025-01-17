@@ -41,11 +41,6 @@ public class GlobalVars {
     public static final int hl_extended = 1000;
 
 
-    public static final double ra_power = 0.1;
-    public static final int ra_down = 300;
-    public static final int ra_high = 900;
-    public static final int ra_backwards = 1400;
-
     //SERVOS
 
     public static final double c_closed = 0.0;
@@ -57,5 +52,20 @@ public class GlobalVars {
 
     public static final double i_captured = 1.0;
     public static final double i_exhume = 0.0;
+
+
+    //ARM
+    public static final double arm_p = 0.0;
+    public static final double arm_i = 0.0;
+    public static final double arm_d = 0.0;
+    public static final double arm_f = 0.0;
+
+    public static final double arm_power = 0.1;
+
+    public static final int arm_down = 0;
+    public static final int arm_submersible_low = 100;
+    public static final int arm_submersible_high = 400;
+    public static final int arm_wall = 200;
+    public static final int arm_bucket = 900;
 
 }
