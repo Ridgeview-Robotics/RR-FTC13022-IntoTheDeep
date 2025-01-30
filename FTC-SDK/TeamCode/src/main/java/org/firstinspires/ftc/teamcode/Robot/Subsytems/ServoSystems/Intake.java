@@ -5,18 +5,22 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Robot.Core.GlobalVars;
 import org.firstinspires.ftc.teamcode.Robot.Core.Robot;
+import org.firstinspires.ftc.teamcode.Utilities.Core.AnalogEncoder;
 import org.firstinspires.ftc.teamcode.Utilities.Core.BasicServoRRX;
+import org.firstinspires.ftc.teamcode.Utilities.Core.EncodedServoRRX;
 
 public class Intake {
 
     BasicServoRRX intakeWheel;
-    BasicServoRRX rotatingServo;
+    EncodedServoRRX rotatingServo;
     ElapsedTime timer;
 
     private intakeWheelPositions desiredPosition = intakeWheelPositions.EXHUME;
+    private intakePositions rotatePosition = intakePositions.EXTRACT;
 
     public enum intakePositions{
         EXTRACT(GlobalVars.i_extraction),
+        HOLDING(GlobalVars.i_holding),
         TRANSFER(GlobalVars.i_transfer);
 
         private final double position;
@@ -47,7 +51,7 @@ public class Intake {
 
     public Intake(HardwareMap hardwareMap){
         intakeWheel = new BasicServoRRX(hardwareMap, "iws");
-        rotatingServo = new BasicServoRRX(hardwareMap, "ris");
+        rotatingServo = new EncodedServoRRX(hardwareMap, "ris", "rie");
 
         timer = new ElapsedTime();
     }
@@ -57,7 +61,7 @@ public class Intake {
     }
 
     public double getRotatingPos(){
-        return rotatingServo.getServoPosition();
+        return rotatingServo.getVoltage();
     }
 
     public void setWheelPos(double pos){
@@ -66,6 +70,10 @@ public class Intake {
 
     public void setRotatingPos(double pos){
         rotatingServo.setPosition(pos);
+    }
+
+    public void setRotatingState(intakePositions position){
+
     }
 
     public void SM_SetPosition(intakeWheelPositions position){

@@ -49,6 +49,7 @@ public class GlobalVars {
 
     public static double i_extraction = 0.0;
     public static double i_transfer = 1.0;
+    public static double i_holding = 0.5;
 
     public static double i_captured = 1.0;
     public static double i_exhume = 0.0;
