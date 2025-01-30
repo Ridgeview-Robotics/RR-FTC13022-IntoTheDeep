@@ -46,8 +46,8 @@ public class Intake {
     }
 
     public Intake(HardwareMap hardwareMap){
-        intakeWheel = new BasicServoRRX(hardwareMap, "wheel");
-        rotatingServo = new BasicServoRRX(hardwareMap, "rotating");
+        intakeWheel = new BasicServoRRX(hardwareMap, "iws");
+        rotatingServo = new BasicServoRRX(hardwareMap, "ris");
 
         timer = new ElapsedTime();
     }

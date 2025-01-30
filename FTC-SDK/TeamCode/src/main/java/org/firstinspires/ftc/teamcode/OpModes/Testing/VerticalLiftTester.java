@@ -11,22 +11,25 @@ public class VerticalLiftTester extends OpMode {
 
     VerticalLift verticalLift;
 
+    double l_power = 0;
+
     @Override
     public void init() {
         verticalLift = new VerticalLift(hardwareMap);
 
+        verticalLift.setPower(l_power, l_power);
 
         verticalLift.leftLift.setMotorBehavior(DcMotor.RunMode.RUN_USING_ENCODER);
         verticalLift.rightLift.setMotorBehavior(DcMotor.RunMode.RUN_USING_ENCODER);
+        verticalLift.rightLift.setReverse();
 
     }
 
     @Override
     public void loop() {
-        double vl_power = gamepad1.left_stick_y;
-        double vr_power = gamepad1.right_stick_y;
+        l_power = gamepad1.left_stick_y;
 
-        verticalLift.setPower(vl_power, vr_power);
+        verticalLift.setPower(l_power, l_power);
 
         telemetry.addData("Left Position: " , verticalLift.getLeftPos());
         telemetry.addData("Right Position: " , verticalLift.getRightPos());

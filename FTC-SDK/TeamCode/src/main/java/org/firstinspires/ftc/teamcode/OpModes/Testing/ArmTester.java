@@ -11,17 +11,20 @@ import org.firstinspires.ftc.teamcode.Robot.Subsytems.RotatingArm.RotatingArm;
 public class ArmTester extends OpMode {
 
     RotatingArm rotatingArm;
+    double ra_power = 0.0;
 
     @Override
     public void init() {
         rotatingArm = new RotatingArm(hardwareMap);
+
+        rotatingArm.setPower(ra_power);
 
         rotatingArm.motor.setMotorBehavior(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     @Override
     public void loop() {
-        double ra_power = gamepad1.left_stick_x;
+        ra_power = gamepad1.left_stick_x;
 
         rotatingArm.setPower(ra_power);
 

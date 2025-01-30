@@ -12,16 +12,20 @@ public class HorizontalLiftTester extends OpMode {
 
     HorizontalLift horizontalLift;
 
+    double h_power = 0;
+
     @Override
     public void init() {
         horizontalLift = new HorizontalLift(hardwareMap);
+
+        horizontalLift.setPower(h_power);
 
         horizontalLift.motor.setMotorBehavior(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     @Override
     public void loop() {
-        double h_power = gamepad1.left_stick_x;
+        h_power = gamepad1.left_stick_x;
 
         horizontalLift.setPower(h_power);
 

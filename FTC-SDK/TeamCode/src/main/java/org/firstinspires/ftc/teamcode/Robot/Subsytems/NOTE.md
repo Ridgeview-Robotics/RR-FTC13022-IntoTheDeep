@@ -23,17 +23,24 @@ Name: rarmm
 
 [Intake]:
 -Wheel
-    Servo Port: E0
+    Servo Port: C2
     Name: iws
 
 -Rotating
-    Servo Port: E1
+    Servo Port: C3
     Name: ris
+    Encoder Map: 
     *AXON SERVO* MUST BE
 
+
+
 [Claw]:
-Servo Port: E2
+Servo Port: C0
 Name: cs
+
+-Rotating Claw
+C1
+name:rc
 
 
 
