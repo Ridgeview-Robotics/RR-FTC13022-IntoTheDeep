@@ -21,8 +21,8 @@ public class Robot {
     public RotatingArm arm;
 
     //external state machine variables
-    public Intake.intakePositions intakeRotPos = Intake.intakePositions.HOLDING;
-    public Intake.intakeWheelPositions wheelPos = Intake.intakeWheelPositions.EXHUME;
+    public static Intake.intakePositions intakeRotPos = Intake.intakePositions.HOLDING;
+    public static Intake.intakeWheelPositions wheelPos = Intake.intakeWheelPositions.EXHUME;
 
     public enum robotStates {
         Intaking("Intaking"),
@@ -65,7 +65,7 @@ public class Robot {
             //From Intake only
             horiz.setTarget(HorizontalLift.horizPositions.RETRACTED);
             intake.setRotatingState(Intake.intakePositions.TRANSFER);
-            if(intakeRotPos == Intake.intakePositions.TRANSFER && intake.get)
+            if(intakeRotPos == Intake.intakePositions.TRANSFER && intake.rotatingClCkr());
 
             }
         else if (state == robotStates.Driving) {

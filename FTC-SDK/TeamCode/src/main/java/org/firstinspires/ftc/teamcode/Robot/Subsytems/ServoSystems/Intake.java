@@ -18,6 +18,9 @@ public class Intake {
     private intakeWheelPositions desiredPosition = intakeWheelPositions.EXHUME;
     private intakePositions rotatePosition = intakePositions.EXTRACT;
 
+
+    public double rot_low_bound = 0.05;
+
     public enum intakePositions{
         EXTRACT(GlobalVars.i_extraction),
         HOLDING(GlobalVars.i_holding),
@@ -64,6 +67,11 @@ public class Intake {
         return rotatingServo.getVoltage();
     }
 
+    public boolean rotatingClCkr(){
+        return rotatingServo.getVoltage() >= rotatePosition.getPosition();
+
+    }
+
     public void setWheelPos(double pos){
         intakeWheel.setPosition(pos);
     }
@@ -85,11 +93,11 @@ public class Intake {
     public void toggleCapture(){
         if(timer.milliseconds() > 500){
             if(desiredPosition == intakeWheelPositions.EXHUME){
-                Robot.wheelPosition = intakeWheelPositions.CAPTURE;
+                Robot.wheelPos = intakeWheelPositions.CAPTURE;
                 SM_SetPosition(intakeWheelPositions.CAPTURE);
             }
             else if(desiredPosition == intakeWheelPositions.CAPTURE){
-                Robot.wheelPosition = intakeWheelPositions.EXHUME;
+                Robot.wheelPos = intakeWheelPositions.EXHUME;
                 SM_SetPosition(intakeWheelPositions.EXHUME);
             }
         }
