@@ -33,11 +33,12 @@ public class Robot {
     //external state machine variables
     public static Intake.intakePositions intakeRotPos = Intake.intakePositions.HOLDING;
     public static Intake.intakeWheelPositions wheelPos = Intake.intakeWheelPositions.EXHUME;
+    public static Claw.ClawPositions clawPos = Claw.ClawPositions.CLOSED;
+
 
     public enum robotStates {
         Intaking("Intaking"),
         Transferring("Transferring"),
-        Driving("Driving"),
         Scoring("Scoring");
 
         robotStates(final String name) {
@@ -85,27 +86,21 @@ public class Robot {
             }
         else if (state == robotStates.Transferring) {
             //From Intake only
+            claw.setRotatingHorizontal();
             horiz.setTarget(HorizontalLift.horizPositions.TRANSFERRING);
             intake.setRotatingState(Intake.intakePositions.TRANSFER);
-            if(rotClear){
+            if(rotClear && horiz.getState() == HorizontalLift.horizPositions.TRANSFERRING){
                 timer.reset();
                 claw.setClawClosed();
-                if(timer.milliseconds()>200){
+                if(timer.milliseconds()>150){
                     intake.setRotatingState(Intake.intakePositions.HOLDING);
                     arm.setTarget(RotatingArm.armPositions.HOLDING);
                 }
             }
         }
-        else if (state == robotStates.Driving) {
-            //All States Possible
-
-        }
         else if (state == robotStates.Scoring) {
             //Only from Driving
-
-        }
-        else {
-
+            horiz.setPower(0);
         }
     }
 
