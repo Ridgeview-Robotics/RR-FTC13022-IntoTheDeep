@@ -38,6 +38,7 @@ public class GlobalVars {
 
     public static double hl_power = 0.1;
     public static int hl_retracted = 0;
+    public static int hl_transferring = 100;
     public static int hl_limit = 1000;
 
 
@@ -64,6 +65,7 @@ public class GlobalVars {
     public static double arm_power = 0.1;
 
     public static int arm_down = 0;
+    public static int arm_holding = 210;
     public static int arm_submersible_low = 100;
     public static int arm_submersible_high = 400;
     public static int arm_wall = 200;

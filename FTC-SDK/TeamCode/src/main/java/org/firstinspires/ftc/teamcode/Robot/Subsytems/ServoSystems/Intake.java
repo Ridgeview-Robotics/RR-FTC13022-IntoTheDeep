@@ -32,7 +32,7 @@ public class Intake {
             position = newPosition;
         }
 
-        private double getPosition(){
+        public double getPosition(){
             return position;
         }
     }
@@ -67,10 +67,6 @@ public class Intake {
         return rotatingServo.getVoltage();
     }
 
-    public boolean rotatingClCkr(){
-        return rotatingServo.getVoltage() >= rotatePosition.getPosition();
-
-    }
 
     public void setWheelPos(double pos){
         intakeWheel.setPosition(pos);

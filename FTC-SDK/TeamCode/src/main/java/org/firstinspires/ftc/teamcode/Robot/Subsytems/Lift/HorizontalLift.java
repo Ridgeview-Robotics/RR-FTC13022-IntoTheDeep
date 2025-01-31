@@ -14,7 +14,8 @@ public class HorizontalLift {
 
     public enum horizPositions{
         RETRACTED(GlobalVars.hl_retracted),
-        EXTENDED(GlobalVars.hl_limit);
+        TRANSFERRING(GlobalVars.hl_retracted),
+        LIMIT(GlobalVars.hl_limit);
 
         private final int horizLiftPos;
 

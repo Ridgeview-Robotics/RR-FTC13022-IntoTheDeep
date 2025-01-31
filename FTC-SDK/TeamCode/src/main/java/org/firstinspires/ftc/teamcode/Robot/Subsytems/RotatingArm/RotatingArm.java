@@ -21,6 +21,7 @@ public class RotatingArm {
 
     public enum armPositions{
         DOWN(GlobalVars.arm_down),
+        HOLDING(GlobalVars.arm_holding),
         SUB_LOW(GlobalVars.arm_submersible_low),
         SUB_HIGH(GlobalVars.arm_submersible_high),
         WALL(GlobalVars.arm_wall),

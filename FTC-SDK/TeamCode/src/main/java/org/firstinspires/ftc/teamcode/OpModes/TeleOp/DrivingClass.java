@@ -11,6 +11,15 @@ public class DrivingClass extends OpMode {
 
     Robot robot;
 
+    public void drivingState(){
+        robot.switchState(Robot.robotStates.Driving);
+        if(gamepad1.a){
+            robot.switchState(Robot.robotStates.Intaking);
+        }
+
+
+    }
+
 
     @Override
     public void init() {
@@ -19,29 +28,31 @@ public class DrivingClass extends OpMode {
 
     @Override
     public void loop() {
-            double max;
+        double max;
 
-            double x = -gamepad1.left_stick_y;
-            double y = gamepad1.left_stick_x;
-            double r = gamepad1.right_stick_x;
+        double x = -gamepad1.left_stick_y;
+        double y = gamepad1.left_stick_x;
+        double r = gamepad1.right_stick_x;
 
-            double leftFrontPower = (x + y + r);
-            double rightFrontPower = (x - y - r);
-            double leftBackPower = (x - y + r);
-            double rightBackPower = (x + y - r);
+        double leftFrontPower = (x + y + r);
+        double rightFrontPower = (x - y - r);
+        double leftBackPower = (x - y + r);
+        double rightBackPower = (x + y - r);
 
-            max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
-            max = Math.max(max, Math.abs(leftBackPower));
-            max = Math.max(max, Math.abs(rightBackPower));
+        max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
+        max = Math.max(max, Math.abs(leftBackPower));
+        max = Math.max(max, Math.abs(rightBackPower));
 
-            if(max > 1.0){
-                leftFrontPower /= max;
-                rightFrontPower /= max;
-                leftBackPower /= max;
-                rightBackPower /= max;
-            }
+        if(max > 1.0){
+            leftFrontPower /= max;
+            rightFrontPower /= max;
+            leftBackPower /= max;
+            rightBackPower /= max;
+        }
 
-            robot.drivetrain.setMotorPower(leftFrontPower, leftBackPower, rightBackPower, rightFrontPower);
+        robot.drivetrain.setMotorPower(leftFrontPower, leftBackPower, rightBackPower, rightFrontPower);
+
+
 
     }
 }
