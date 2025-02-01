@@ -39,6 +39,8 @@ public class Robot {
 
     public boolean shouldUpdate;
 
+    public boolean readyForTransfer;
+
 
     public enum robotStates {
         Intaking("Intaking"),
@@ -56,8 +58,7 @@ public class Robot {
         }
     }
 
-    public robotStates currentState;
-    public robotStates lastState;
+    public robotStates currentState = robotStates.Scoring;
 
     public Robot(HardwareMap hardwareMap) {
         drivetrain = new MecanumDrivetrain(hardwareMap);
@@ -73,6 +74,7 @@ public class Robot {
 
     public void init(){
         //TODO: Establish initial states of subsystems
+        intake.setRotatingState(Intake.intakePositions.HOLDING);
     }
 
     public void loop(){
@@ -97,14 +99,12 @@ public class Robot {
 
     public void toIntake(){
         horiz.setTarget(HorizontalLift.horizPositions.RETRACTED);
-        intake.setRotatingState(Intake.intakePositions.EXTRACT);
         arm.setTarget(RotatingArm.armPositions.DOWN);
         vert.setTarget(VerticalLift.vertPositions.DOWN);
     }
 
     public void switchState(robotStates state) {
         if (currentState != state) {
-            lastState = currentState;
             currentState = state;
             shouldUpdate=true;
         }
@@ -112,8 +112,15 @@ public class Robot {
             if (state == robotStates.Intaking) {
                 toIntake();
             } else if (state == robotStates.Transferring) {
+                readyForTransfer = false;
+                if(horiz.getPos() == horizPos.getPos()){
+                    readyForTransfer = true;
+                }
+                if(readyForTransfer){
+                    transfer();
+                }
                 //From Intake only
-                transfer();
+
 
             } else if (state == robotStates.Scoring) {
                 //Only from Driving
@@ -138,7 +145,7 @@ public class Robot {
     public void intakeRotClearanceCkr(){
         rotClear = false;
         //TODO: Un-hardcode variable
-        rotClear = intake.getRotatingPos() == intakeRotPos.getPosition();
+        rotClear = intake.getRotatingPos() >= GlobalVars.i_ae_u_t;
     }
 
     public void armSetPosition(RotatingArm.armPositions pos) {

@@ -2,11 +2,14 @@ package org.firstinspires.ftc.teamcode.OpModes.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.robot.RobotState;
 
 import org.firstinspires.ftc.teamcode.Robot.Core.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Subsytems.Lift.HorizontalLift;
 import org.firstinspires.ftc.teamcode.Robot.Subsytems.Lift.VerticalLift;
 import org.firstinspires.ftc.teamcode.Robot.Subsytems.RotatingArm.RotatingArm;
+import org.firstinspires.ftc.teamcode.Robot.Subsytems.ServoSystems.Intake;
 
 
 @TeleOp(name = "DrivingT")
@@ -28,6 +31,10 @@ public class DrivingClass extends OpMode {
     @Override
     public void loop() {
         robot.loop();
+
+        if(gamepad1.ps){
+            robot.horiz.setTarget(HorizontalLift.horizPositions.LIMIT);
+        }
 
         double max;
 
@@ -53,7 +60,6 @@ public class DrivingClass extends OpMode {
 
         robot.drivetrain.setMotorPower(leftFrontPower, leftBackPower, rightBackPower, rightFrontPower);
 
-        if(state == Robot.robotStates.Scoring){
             //Vertical Lift, Claw Toggle.
             //Horizontal and Intake are locked.
 
@@ -70,30 +76,39 @@ public class DrivingClass extends OpMode {
 
             if(gamepad1.dpad_down){
                 robot.vert.setTarget(VerticalLift.vertPositions.DOWN);
-                robot.setArmDownWithClkr();
-                //TODO
+                robot.setArmDownWithClkr(); //ckr barely works but thats a later type thing
                 robot.switchState(Robot.robotStates.Transferring);
             }
 
             if(gamepad1.dpad_right){
-                robot.arm.setTarget(RotatingArm.armPositions.SUBMERSIBLE);
-                robot.vert.setTarget(VerticalLift.vertPositions.BAR_LOW);
+                robot.intake.setRotatingState(Intake.intakePositions.TRANSFER);
             }
 
-            if(gamepad1.dpad_up){
-                robot.arm.setTarget(RotatingArm.armPositions.SUBMERSIBLE);
-                robot.vert.setTarget(VerticalLift.vertPositions.BAR_HIGH);
-            }
+//            if(gamepad1.dpad_up){
+//                robot.arm.setTarget(RotatingArm.armPositions.SUBMERSIBLE);
+//                robot.vert.setTarget(VerticalLift.vertPositions.BAR_HIGH);
+//                robot.intake.setRotatingState(Intake.intakePositions.HOLDING);
+//                robot.claw.setRotatingVertical();
+//            }
 
             if(gamepad1.y){
                 robot.arm.setTarget(RotatingArm.armPositions.STRAIGHT_UP);
                 robot.vert.setTarget(VerticalLift.vertPositions.BUCKET_HIGH);
+                robot.intake.setRotatingState(Intake.intakePositions.HOLDING);
+                robot.claw.setRotatingVertical();
             }
 
             if(gamepad1.b){
                 robot.arm.setTarget(RotatingArm.armPositions.STRAIGHT_UP);
                 robot.vert.setTarget(VerticalLift.vertPositions.BUCKET_LOW);
+                robot.intake.setRotatingState(Intake.intakePositions.HOLDING);
+                robot.claw.setRotatingVertical();
             }
+
+//            if(gamepad1.dpad_left){
+//                robot.claw.setRotatingVertical();
+//                robot.arm.setTarget(RotatingArm.armPositions.WALL);
+//            }
 
             if(gamepad1.x){
                 robot.arm.setTarget(RotatingArm.armPositions.BUCKET);
@@ -103,21 +118,8 @@ public class DrivingClass extends OpMode {
                 robot.claw.toggleClaw();
             }
 
-            if(gamepad1.left_bumper){
-                robot.arm.setTarget(RotatingArm.armPositions.WALL);
-            }
-
-            if(gamepad1.right_bumper){
-                robot.switchState(Robot.robotStates.Intaking);
-            }
-
             telemetry.addLine("In Scoring/Driving Mode");
-        }
-        else if(state == Robot.robotStates.Transferring){
-            //All controlls other than driving are locked.
 
-        }
-        else if(state == Robot.robotStates.Intaking){
             //Horizontal on dynamic control, intake intake and exhume
             //transfer button
             //vertical lift and arm are locked.
@@ -128,15 +130,50 @@ public class DrivingClass extends OpMode {
             //left bumper returns to home then into transition
             //l3 outtake
             //r3 intake
+            //button for set intake down: rb
+            if(gamepad1.left_trigger > 0.0){
+                robot.horiz.motor.setMotorBehavior(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.horiz.setPower(-gamepad1.left_trigger);
+            }
+            else if(gamepad1.right_trigger > 0.0){
+                robot.horiz.motor.setMotorBehavior(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.horiz.setPower(gamepad1.right_trigger);
+            }
+            else{
+                robot.horiz.setPower(0);
+            }
 
-        }
-        else{
-            telemetry.addLine("Error!  Null State.");
-        }
+
+
+
+            if(gamepad1.left_bumper){
+                robot.horiz.motor.setTargetPos(robot.horiz.getPos());
+                robot.horiz.motor.setMotorBehavior(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.horiz.setPower(1.0);
+                robot.horiz.setTarget(HorizontalLift.horizPositions.RETRACTED);
+                robot.intake.setRotatingState(Intake.intakePositions.HOLDING);
+                robot.claw.setRotatingHorizontal();
+            }
+
+            if(gamepad1.right_stick_button){
+                robot.intake.setRotatingState(Intake.intakePositions.EXTRACT);
+            }
+
+            if(gamepad1.left_stick_button){
+                robot.intake.setWheelPower(-1);
+            }
+            else if(gamepad1.right_bumper){
+                robot.intake.setWheelPower(1);
+            }
+            else{
+                robot.intake.setWheelPower(0);
+            }
+
 
         telemetry.addData("State", state.getName());
         telemetry.addData("Rotation Ckr", robot.rotClear);
         telemetry.addData("Arm Ckr", robot.armClear);
+        telemetry.addData("LT:", gamepad1.left_trigger);
         telemetry.update();
     }
 }
