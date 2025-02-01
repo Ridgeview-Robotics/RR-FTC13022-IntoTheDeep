@@ -27,30 +27,31 @@ public class GlobalVars {
 
     //LIFT
 
-    public static double vl_power = 0.1;
+    public static double vl_power = 0.2;
+    public static double vl_r_power = 0.25;
     public static int vl_down = 0;
-    public static int vl_bucket_high = 1100;
-    public static int vl_bucket_low = 900;
+    public static int vl_bucket_high = 2000;
+    public static int vl_bucket_low = 500;
     public static int vl_wall = 600;
     public static int vl_bar_low = 1300;
     public static int vl_bar_high = 1000;
 
 
-    public static double hl_power = 0.1;
+    public static double hl_power = 0.9;
     public static int hl_retracted = 0;
-    public static int hl_transferring = 100;
+    public static int hl_transferring = 90;
     public static int hl_limit = 1000;
 
 
     //SERVOS
 
-    public static double c_closed = 0.0;
-    public static double c_open = 1.0;
+    public static double c_closed = 0.3588;
+    public static double c_open = 0.4805;
 
 
     public static double i_extraction = 0.0;
-    public static double i_transfer = 1.0;
-    public static double i_holding = 0.5;
+    public static double i_transfer = 0.32;
+    public static double i_holding = 0.47;
 
     public static double i_captured = 1.0;
     public static double i_exhume = 0.0;
@@ -62,14 +63,14 @@ public class GlobalVars {
     public static double arm_d = 0.0;
     public static  double arm_f = 0.0;
 
-    public static double arm_power = 0.1;
+    public static double arm_power = 0.35;
 
     public static int arm_down = 0;
-    public static int arm_holding = 210;
-    public static int arm_submersible_low = 100;
-    public static int arm_submersible_high = 400;
-    public static int arm_wall = 200;
-    public static int arm_bucket = 900;
+    public static int arm_holding = 395;
+    public static int WALL = 22;
+    public static int arm_submersible = 400;
+    public static int arm_straight_up = 1575;
+    public static int arm_bucket = 1700;
 
     //LIFT PIDS
     public static double l_KP = 0.01; // Proportional gain for PID
@@ -77,7 +78,7 @@ public class GlobalVars {
     public static double l_KD = 0.005; // Derivative gain for PID
 
     //rotating claw servo positions
-    public static double c_vertical = 0.0;
-    public static double c_horizontal = 1.0;
+    public static double c_vertical = 0.866;
+    public static double c_horizontal = 0.491;
 
 }

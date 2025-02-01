@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Robot.Subsytems.Lift;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Robot.Core.GlobalVars;
@@ -14,7 +15,7 @@ public class HorizontalLift {
 
     public enum horizPositions{
         RETRACTED(GlobalVars.hl_retracted),
-        TRANSFERRING(GlobalVars.hl_retracted),
+        TRANSFERRING(GlobalVars.hl_transferring),
         LIMIT(GlobalVars.hl_limit);
 
         private final int horizLiftPos;
@@ -36,6 +37,9 @@ public class HorizontalLift {
         //reverse?
         mHoriz = horizPositions.RETRACTED;
         setTarget(getState());
+        motor.setMotorBehavior(DcMotor.RunMode.RUN_TO_POSITION);
+
+        motor.setReverse();
 
         motor.resetEncoder();
         setPower(GlobalVars.hl_power);

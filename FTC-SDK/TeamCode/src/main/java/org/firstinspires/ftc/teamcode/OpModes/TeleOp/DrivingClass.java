@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.robot.RobotState;
 
 import org.firstinspires.ftc.teamcode.Robot.Core.Robot;
+import org.firstinspires.ftc.teamcode.Robot.Subsytems.Lift.VerticalLift;
+import org.firstinspires.ftc.teamcode.Robot.Subsytems.RotatingArm.RotatingArm;
 
 
 @TeleOp(name = "DrivingT")
@@ -54,14 +56,79 @@ public class DrivingClass extends OpMode {
         if(state == Robot.robotStates.Scoring){
             //Vertical Lift, Claw Toggle.
             //Horizontal and Intake are locked.
+
+            //down dpad is base,    back to driving
+            //low rung is right dpad      arm is around and below
+            //updpad is high rung
+            //high bucket is y      straight up
+            //low bucket is b      straight up
+            //x is slam dunk
+            // claw toggle is a
+            //left dpad is wall grab
+
+            //right bumper to intake, drops intake
+
+            if(gamepad1.dpad_down){
+                robot.vert.setTarget(VerticalLift.vertPositions.DOWN);
+                robot.setArmDownWithClkr();
+                //TODO
+                robot.switchState(Robot.robotStates.Transferring);
+            }
+
+            if(gamepad1.dpad_right){
+                robot.arm.setTarget(RotatingArm.armPositions.SUBMERSIBLE);
+                robot.vert.setTarget(VerticalLift.vertPositions.BAR_LOW);
+            }
+
+            if(gamepad1.dpad_up){
+                robot.arm.setTarget(RotatingArm.armPositions.SUBMERSIBLE);
+                robot.vert.setTarget(VerticalLift.vertPositions.BAR_HIGH);
+            }
+
+            if(gamepad1.y){
+                robot.arm.setTarget(RotatingArm.armPositions.STRAIGHT_UP);
+                robot.vert.setTarget(VerticalLift.vertPositions.BUCKET_HIGH);
+            }
+
+            if(gamepad1.b){
+                robot.arm.setTarget(RotatingArm.armPositions.STRAIGHT_UP);
+                robot.vert.setTarget(VerticalLift.vertPositions.BUCKET_LOW);
+            }
+
+            if(gamepad1.x){
+                robot.arm.setTarget(RotatingArm.armPositions.BUCKET);
+            }
+
+            if(gamepad1.a){
+                robot.claw.toggleClaw();
+            }
+
+            if(gamepad1.left_bumper){
+                robot.arm.setTarget(RotatingArm.armPositions.WALL);
+            }
+
+            if(gamepad1.right_bumper){
+                robot.switchState(Robot.robotStates.Intaking);
+            }
+
+            telemetry.addLine("In Scoring/Driving Mode");
         }
         else if(state == Robot.robotStates.Transferring){
             //All controlls other than driving are locked.
+
         }
         else if(state == Robot.robotStates.Intaking){
             //Horizontal on dynamic control, intake intake and exhume
             //transfer button
             //vertical lift and arm are locked.
+
+
+            //lt bring in
+            // rt extend
+            //left bumper returns to home then into transition
+            //l3 outtake
+            //r3 intake
+
         }
         else{
             telemetry.addLine("Error!  Null State.");

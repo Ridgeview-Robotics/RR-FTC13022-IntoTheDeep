@@ -7,11 +7,12 @@ import org.firstinspires.ftc.teamcode.Robot.Core.GlobalVars;
 import org.firstinspires.ftc.teamcode.Robot.Core.Robot;
 import org.firstinspires.ftc.teamcode.Utilities.Core.AnalogEncoder;
 import org.firstinspires.ftc.teamcode.Utilities.Core.BasicServoRRX;
+import org.firstinspires.ftc.teamcode.Utilities.Core.ContServoRRX;
 import org.firstinspires.ftc.teamcode.Utilities.Core.EncodedServoRRX;
 
 public class Intake {
 
-    BasicServoRRX intakeWheel;
+    ContServoRRX intakeWheel;
     EncodedServoRRX rotatingServo;
     ElapsedTime timer;
 
@@ -53,23 +54,23 @@ public class Intake {
     }
 
     public Intake(HardwareMap hardwareMap){
-        intakeWheel = new BasicServoRRX(hardwareMap, "iws");
+        intakeWheel = new ContServoRRX(hardwareMap, "iws");
         rotatingServo = new EncodedServoRRX(hardwareMap, "ris", "rie");
 
         timer = new ElapsedTime();
-    }
-
-    public double getWheelPos(){
-        return intakeWheel.getServoPosition();
     }
 
     public double getRotatingPos(){
         return rotatingServo.getVoltage();
     }
 
+    public double getNotEncoderPosition(){
+        return rotatingServo.getNEPower();
+    }
 
-    public void setWheelPos(double pos){
-        intakeWheel.setPosition(pos);
+
+    public void setWheelPower(double pos){
+        intakeWheel.setPower(pos);
     }
 
     public void setRotatingPos(double pos){
@@ -77,24 +78,16 @@ public class Intake {
     }
 
     public void setRotatingState(intakePositions position){
-
-    }
-
-    public void SM_SetPosition(intakeWheelPositions position){
-        timer.reset();
-        desiredPosition = position;
-        intakeWheel.setPosition(position.getWheelPosition());
+        setRotatingPos(position.getPosition());
     }
 
     public void toggleCapture(){
         if(timer.milliseconds() > 500){
             if(desiredPosition == intakeWheelPositions.EXHUME){
                 Robot.wheelPos = intakeWheelPositions.CAPTURE;
-                SM_SetPosition(intakeWheelPositions.CAPTURE);
             }
             else if(desiredPosition == intakeWheelPositions.CAPTURE){
                 Robot.wheelPos = intakeWheelPositions.EXHUME;
-                SM_SetPosition(intakeWheelPositions.EXHUME);
             }
         }
     }

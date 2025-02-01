@@ -46,8 +46,9 @@ public class VerticalLift {
         setTarget(getState());
 
         rightLift.resetEncoder();
+        rightLift.setReverse();
         leftLift.resetEncoder();
-        setPower(GlobalVars.vl_power, GlobalVars.vl_power);
+        setPower(GlobalVars.vl_power, GlobalVars.vl_r_power);
     }
 
     public vertPositions getState(){

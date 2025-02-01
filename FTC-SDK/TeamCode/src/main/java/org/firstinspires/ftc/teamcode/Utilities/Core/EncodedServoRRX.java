@@ -31,4 +31,8 @@ public class EncodedServoRRX {
     }//limits servo range from 0.0 to min, and down from 1.0 to max.
     //if you were to set the range to 0.4 to 0.6, the tick from the servo would have 0.0 = 0.4 and 1.0 = 0.6.
 
+    public double getNEPower(){
+        return servo.getServoPosition();
+    }
+
 }

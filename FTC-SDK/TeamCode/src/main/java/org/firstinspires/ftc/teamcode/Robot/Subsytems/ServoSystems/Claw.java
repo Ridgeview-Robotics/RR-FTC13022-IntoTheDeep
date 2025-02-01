@@ -54,11 +54,17 @@ public class Claw {
     }
 
     public double getRotatingPosition(){
-        return clawServo.getServoPosition();
+        return rotatingClawServo.getServoPosition();
     }
 
     public void setRotatingVertical(){
         rotatingClawServo.setPosition(GlobalVars.c_vertical);
+    }
+
+    public void clawStateSet(ClawPositions position){
+        timer.reset();
+        clawPos = position;
+        clawServo.setPosition(position.position);
     }
 
     public void setRotatingHorizontal(){
@@ -69,11 +75,11 @@ public class Claw {
         if(timer.milliseconds() > 300){
             if(clawPos == ClawPositions.CLOSED){
                 Robot.clawPos = ClawPositions.OPEN;
-                clawServo.setPosition(GlobalVars.c_open);
+                clawStateSet(ClawPositions.OPEN);
             }
             else{
                 Robot.clawPos = ClawPositions.CLOSED;
-                clawServo.setPosition(GlobalVars.c_closed);
+                clawStateSet(ClawPositions.CLOSED);
             }
         }
     }

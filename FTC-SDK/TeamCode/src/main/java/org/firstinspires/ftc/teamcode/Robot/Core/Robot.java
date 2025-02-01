@@ -30,10 +30,14 @@ public class Robot {
     public VerticalLift.vertPositions vertPos = VerticalLift.vertPositions.DOWN;
     public HorizontalLift.horizPositions horizPos = HorizontalLift.horizPositions.RETRACTED;
 
+    public static RotatingArm.armPositions armington = RotatingArm.armPositions.DOWN;
+
     //external state machine variables
     public static Intake.intakePositions intakeRotPos = Intake.intakePositions.HOLDING;
     public static Intake.intakeWheelPositions wheelPos = Intake.intakeWheelPositions.EXHUME;
     public static Claw.ClawPositions clawPos = Claw.ClawPositions.CLOSED;
+
+    public boolean shouldUpdate;
 
 
     public enum robotStates {
@@ -57,6 +61,11 @@ public class Robot {
 
     public Robot(HardwareMap hardwareMap) {
         drivetrain = new MecanumDrivetrain(hardwareMap);
+        intake = new Intake(hardwareMap);
+        arm = new RotatingArm(hardwareMap);
+        vert = new VerticalLift(hardwareMap);
+        horiz = new HorizontalLift(hardwareMap);
+        claw = new Claw(hardwareMap);
         autoDrivetrain = new SampleMecanumDrive(hardwareMap);
         timer = new ElapsedTime();
 
@@ -71,43 +80,59 @@ public class Robot {
         intakeRotClearanceCkr();
     }
 
+    public void transfer(){
+        claw.setRotatingHorizontal();
+        horiz.setTarget(HorizontalLift.horizPositions.TRANSFERRING);
+        intake.setRotatingState(Intake.intakePositions.TRANSFER);
+        if (rotClear && horiz.getState() == HorizontalLift.horizPositions.TRANSFERRING) {
+            timer.reset();
+            claw.setClawClosed();
+            if (timer.milliseconds() > 150) {
+                intake.setRotatingState(Intake.intakePositions.HOLDING);
+                arm.setTarget(RotatingArm.armPositions.HOLDING);
+            }
+        }
+        switchState(robotStates.Scoring);
+    }
+
+    public void toIntake(){
+        horiz.setTarget(HorizontalLift.horizPositions.RETRACTED);
+        intake.setRotatingState(Intake.intakePositions.EXTRACT);
+        arm.setTarget(RotatingArm.armPositions.DOWN);
+        vert.setTarget(VerticalLift.vertPositions.DOWN);
+    }
+
     public void switchState(robotStates state) {
         if (currentState != state) {
             lastState = currentState;
             currentState = state;
+            shouldUpdate=true;
         }
-        if (state == robotStates.Intaking) {
-            horiz.setTarget(HorizontalLift.horizPositions.RETRACTED);
-            intake.setRotatingState(Intake.intakePositions.EXTRACT);
-            arm.setTarget(RotatingArm.armPositions.DOWN);
-            vert.setTarget(VerticalLift.vertPositions.DOWN);
-            //Score to Intake
-            //Drive to Intake
-            }
-        else if (state == robotStates.Transferring) {
-            //From Intake only
-            claw.setRotatingHorizontal();
-            horiz.setTarget(HorizontalLift.horizPositions.TRANSFERRING);
-            intake.setRotatingState(Intake.intakePositions.TRANSFER);
-            if(rotClear && horiz.getState() == HorizontalLift.horizPositions.TRANSFERRING){
-                timer.reset();
-                claw.setClawClosed();
-                if(timer.milliseconds()>150){
-                    intake.setRotatingState(Intake.intakePositions.HOLDING);
-                    arm.setTarget(RotatingArm.armPositions.HOLDING);
-                }
+        if(shouldUpdate) {
+            if (state == robotStates.Intaking) {
+                toIntake();
+            } else if (state == robotStates.Transferring) {
+                //From Intake only
+                transfer();
+
+            } else if (state == robotStates.Scoring) {
+                //Only from Driving
+                horiz.setPower(0);
             }
         }
-        else if (state == robotStates.Scoring) {
-            //Only from Driving
-            horiz.setPower(0);
-        }
+        shouldUpdate = false;
     }
 
-    public void armClearanceCkr(){
+    public void armClearanceCkr() {
         armClear = false;
         //TODO: Un-hardcode variable
-        armClear = vert.getState().getVertPos() < 100;
+        armClear = vert.getLeftPos() < 100;
+    }
+
+    public void setArmDownWithClkr(){
+        if(armClear){
+            arm.setTarget(RotatingArm.armPositions.DOWN);
+        }
     }
 
     public void intakeRotClearanceCkr(){

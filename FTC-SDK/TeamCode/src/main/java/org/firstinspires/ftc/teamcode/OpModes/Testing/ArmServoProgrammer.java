@@ -22,19 +22,19 @@ public class ArmServoProgrammer extends OpMode {
     @Override
     public void loop() {
         if(gamepad1.a){
-            claw.setClawPosition(claw.getClawPosition() - 0.01);
+            claw.setClawPosition(claw.getClawPosition() - 0.0001);
         }
 
         if(gamepad1.y){
-            claw.setClawPosition(claw.getClawPosition() + 0.01);
+            claw.setClawPosition(claw.getClawPosition() + 0.0001);
         }
 
         if(gamepad1.dpad_down){
-            claw.setRotatingPosition(claw.getRotatingPosition() - 0.01);
+            claw.setRotatingPosition(claw.getRotatingPosition() - 0.0001);
         }
 
         if(gamepad1.dpad_up){
-            claw.setRotatingPosition(claw.getRotatingPosition() + 0.01);
+            claw.setRotatingPosition(claw.getRotatingPosition() + 0.0001);
         }
 
         telemetry.addLine("Claw: A and Y");

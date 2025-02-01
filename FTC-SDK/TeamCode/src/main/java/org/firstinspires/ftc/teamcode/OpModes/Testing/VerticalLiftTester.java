@@ -21,7 +21,6 @@ public class VerticalLiftTester extends OpMode {
 
         verticalLift.leftLift.setMotorBehavior(DcMotor.RunMode.RUN_USING_ENCODER);
         verticalLift.rightLift.setMotorBehavior(DcMotor.RunMode.RUN_USING_ENCODER);
-        verticalLift.rightLift.setReverse();
 
     }
 

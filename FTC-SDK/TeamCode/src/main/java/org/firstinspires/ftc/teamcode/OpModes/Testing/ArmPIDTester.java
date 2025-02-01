@@ -24,13 +24,13 @@ public class ArmPIDTester extends OpMode {
             arm.setTarget(RotatingArm.armPositions.DOWN);
         }
         if(gamepad1.dpad_right){
-            arm.setTarget(RotatingArm.armPositions.SUB_LOW);
+            arm.setTarget(RotatingArm.armPositions.WALL);
         }
         if(gamepad1.dpad_up){
-            arm.setTarget(RotatingArm.armPositions.SUB_HIGH);
+            arm.setTarget(RotatingArm.armPositions.SUBMERSIBLE);
         }
         if(gamepad1.dpad_left){
-            arm.setTarget(RotatingArm.armPositions.WALL);
+            arm.setTarget(RotatingArm.armPositions.STRAIGHT_UP);
         }
         if(gamepad1.b) {
             arm.setTarget(RotatingArm.armPositions.BUCKET);
